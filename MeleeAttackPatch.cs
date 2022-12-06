@@ -19,27 +19,20 @@ namespace SolidHitboxes
 
             try
             {
-                var flagAssignIndex = codeLines.FindIndex(p => p.opcode == OpCodes.Call && p.operand.ToString().Contains("IsEnemy"));
-                var flagOperand = (LocalBuilder)codeLines[flagAssignIndex + 1].operand;
+                var flagAssignIndex = codeLines.FindIndex(p => p.opcode == OpCodes.Stloc_S && p.operand.ToString().Contains("Boolean (28)"));
+                var flagOperand = (LocalBuilder)codeLines[flagAssignIndex].operand;
 
                 // Step 1: Remove check which prevents AI friendly fire hits from registering
                 if (flagAssignIndex > -1)
                 {
-                    if (codeLines[flagAssignIndex + 2].opcode == OpCodes.Ldarg_0 &&
-                        codeLines[flagAssignIndex + 4].opcode == OpCodes.Callvirt &&
-                        codeLines[flagAssignIndex + 4].operand.ToString().Contains("IsPlayer") &&
-                        IsTrue(codeLines[flagAssignIndex + 5].opcode))
+                    if (codeLines[flagAssignIndex + 1].opcode == OpCodes.Ldarg_0 &&
+                        codeLines[flagAssignIndex + 3].opcode == OpCodes.Callvirt &&
+                        codeLines[flagAssignIndex + 3].operand.ToString().Contains("IsPlayer") &&
+                        IsTrue(codeLines[flagAssignIndex + 4].opcode) && 
+                        codeLines[flagAssignIndex + 5].IsLdloc(flagOperand))
                     {
-                        codeLines.RemoveRange(flagAssignIndex + 2, 4);
-
-                        // Remove IsEnemy check
-                        var flagCheckIndex = codeLines.FindIndex(flagAssignIndex, p => p.IsLdloc(flagOperand));
-
-                        if (flagCheckIndex > -1)
-                        {
-                            codeLines.RemoveRange(flagCheckIndex, 2);
-                            collisionPatchSuccess = true;
-                        }
+                        codeLines.RemoveRange(flagAssignIndex + 1, 6);
+                        collisionPatchSuccess = true;
                     }
                 }
 

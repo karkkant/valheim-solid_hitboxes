@@ -19,18 +19,18 @@ namespace SolidHitboxes
 
             try
             {
-                var flagAssignIndex = codeLines.FindIndex(p => p.opcode == OpCodes.Call && p.operand.ToString().Contains("IsEnemy"));
+                var flagAssignIndex = codeLines.FindIndex(p => p.opcode == OpCodes.Stloc_1);
 
                 if (flagAssignIndex > -1)
                 {
                     // Double check that we have correct code block
-                    if (codeLines[flagAssignIndex + 2].opcode == OpCodes.Ldarg_0 &&
-                        codeLines[flagAssignIndex + 4].opcode == OpCodes.Callvirt &&
-                        codeLines[flagAssignIndex + 4].operand.ToString().Contains("IsPlayer") &&
-                        codeLines[flagAssignIndex + 6].opcode == OpCodes.Ldloc_1 &&
-                        codeLines[flagAssignIndex + 9].opcode == OpCodes.Ret)
+                    if (codeLines[flagAssignIndex + 1].opcode == OpCodes.Ldarg_0 &&
+                        codeLines[flagAssignIndex + 3].opcode == OpCodes.Callvirt &&
+                        codeLines[flagAssignIndex + 3].operand.ToString().Contains("IsPlayer") &&
+                        codeLines[flagAssignIndex + 5].opcode == OpCodes.Ldloc_1 &&
+                        codeLines[flagAssignIndex + 8].opcode == OpCodes.Ret)
                     {
-                        codeLines.RemoveRange(flagAssignIndex + 2, 8);
+                        codeLines.RemoveRange(flagAssignIndex + 1, 8);
                         success = true;
                     }
                 }
