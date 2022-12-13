@@ -56,16 +56,14 @@ namespace SolidHitboxes
             if (applyDamageIndex > -1)
             {
                 var hookPatch = new List<CodeInstruction>();
-                hookPatch.Add(new CodeInstruction(OpCodes.Ldarg_0));
-                hookPatch.Add(new CodeInstruction(OpCodes.Ldfld, AccessTools.Field(typeof(Projectile), nameof(Projectile.m_owner))));
                 hookPatch.Add(new CodeInstruction(OpCodes.Ldloc_3));
-                hookPatch.Add(new CodeInstruction(OpCodes.Isinst, typeof(Character)));
                 hookPatch.Add(new CodeInstruction(OpCodes.Ldloc_S, 4));
                 hookPatch.Add(new CodeInstruction(OpCodes.Callvirt, AccessTools.Method(typeof(FFDamageHandler), nameof(FFDamageHandler.ModifyDamage))));
 
                 // Apply damage method call takes 2 arguments, so move back 2 lines so we don't mess up params
                 codeLines.InsertRange(applyDamageIndex - 2, hookPatch);
-            } else
+            }
+            else
             {
                 Debug.Log("Projectile friendly fire patch failed.");
             }
