@@ -14,6 +14,11 @@ namespace SolidHitboxes
                 var attacker = hit?.GetAttacker();
                 var targetChar = target as Character;
 
+                if (attacker.IsTamed() && targetChar.IsPlayer())
+                {
+                    hit.ApplyModifier(0);
+                }
+                
                 if (AIFriendlyFireEnabled || 
                     attacker?.GetBaseAI() is not MonsterAI ||
                     targetChar?.GetBaseAI() is not MonsterAI) return;
