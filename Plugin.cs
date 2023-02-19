@@ -4,7 +4,7 @@ using HarmonyLib;
 
 namespace SolidHitboxes
 {
-    [BepInPlugin("org.bepinex.plugins.solid-hitboxes", "Solid Hitboxes", "1.0.3")]
+    [BepInPlugin("org.bepinex.plugins.solid-hitboxes", "Solid Hitboxes", "1.0.4")]
     public class Plugin : BaseUnityPlugin
     {
         private readonly Harmony _harmony = new Harmony("org.bepinex.plugins.solid-hitboxes");

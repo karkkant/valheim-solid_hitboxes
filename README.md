@@ -17,6 +17,9 @@ Everyone on the server needs to have same config. The mod should be installed on
 
 Changelog
 -----------
+1.0.4
+- Fixed tamed animals doing FF to player (credits to Aneemachenn)
+
 1.0.3
 - Fixed issues with Ballista and traps
 
