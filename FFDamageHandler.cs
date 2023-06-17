@@ -14,7 +14,7 @@ namespace SolidHitboxes
                 var attacker = hit?.GetAttacker();
                 var targetChar = target as Character;
 
-                if (attacker?.IsTamed() == true && targetChar?.IsPlayer() == true)
+                if (attacker?.IsTamed() == true && (targetChar?.IsPlayer() == true || targetChar?.IsTamed() == true))
                 {
                     hit.ApplyModifier(0);
                     return;

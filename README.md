@@ -17,6 +17,9 @@ Everyone on the server needs to have same config. The mod should be installed on
 
 Changelog
 -----------
+1.0.5
+- Tamed animals no longer do damage to each others
+
 1.0.4
 - Fixed tamed animals doing FF to player (credits to Aneemachenn)
 
@@ -29,5 +32,5 @@ Changelog
 1.0.1
 - Fixed server sync
 
-1.0.0 
+1.0.0
 - Initial release
