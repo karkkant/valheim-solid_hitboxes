@@ -17,6 +17,8 @@ namespace SolidHitboxes
         ConfigSync configSync = new ConfigSync(pluginId) { DisplayName = pluginName, CurrentVersion = pluginVersion, MinimumRequiredVersion = pluginVersion };
         private static ConfigEntry<bool> LockConfig;
         private static ConfigEntry<bool> EnableFriendlyFire;
+        private static ConfigEntry<float> FFDamageModifierConfig;
+        internal static float FFDamageModifier => FFDamageModifierConfig.Value;
 
         public static bool FFEnabled => EnableFriendlyFire.Value;
 
@@ -24,6 +26,9 @@ namespace SolidHitboxes
         {
             LockConfig = config("General", "LockConfig", true, "If on, the configuration is locked and can be changed by server admins only. [Synced with server]");
             EnableFriendlyFire = config("General", "EnableFriendlyFire", false, "Whether or not AI can damage their friends");
+            FFDamageModifierConfig = config("General", "FriendlyFireDamageModifier", 1f,
+                new ConfigDescription("Damage multiplier applied when AI deal friendly fire damage to each other (1 = full damage, 0 = no damage, 0.5 = half damage, etc).",
+                new AcceptableValueRange<float>(0f, 5f)));
 
             _harmony.PatchAll();
         }
