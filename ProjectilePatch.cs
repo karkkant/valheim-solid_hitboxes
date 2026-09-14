@@ -11,7 +11,7 @@ namespace SolidHitboxes
     class ProjectilePatch
     {
         [HarmonyTranspiler]
-        [HarmonyPatch(typeof(Projectile), nameof(Projectile.IsValidTarget))]
+        [HarmonyPatch(typeof(Projectile), "IsValidTarget")]
         private static IEnumerable<CodeInstruction> ProjectileTargetPatch(IEnumerable<CodeInstruction> instructions)
         {
             var codeLines = new List<CodeInstruction>(instructions);

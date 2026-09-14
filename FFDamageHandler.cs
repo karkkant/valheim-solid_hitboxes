@@ -17,21 +17,26 @@ namespace SolidHitboxes
                     hit.ApplyModifier(0);
                     return;
                 }
-                
-                if (Plugin.FFEnabled || 
-                    attacker?.GetBaseAI() is not MonsterAI ||
-                    targetChar?.GetBaseAI() is not MonsterAI) return;
+
+                if (attacker?.GetBaseAI() is not MonsterAI || targetChar?.GetBaseAI() is not MonsterAI) return;
 
                 var isEnemy = !attacker.IsPlayer() && BaseAI.IsEnemy(attacker, targetChar);
-                
-                if (!attacker.IsPlayer() && !isEnemy)
+
+                if (attacker.IsPlayer() || isEnemy) return;
+
+                if (!Plugin.FFEnabled)
                 {
                     hit.ApplyModifier(0);
                 }
-            } catch(Exception e)
+                else
+                {
+                    hit.ApplyModifier(Plugin.FFDamageModifier);
+                }
+            }
+            catch (Exception e)
             {
                 Debug.LogError($"FFDamageHandler error: Attacker: {hit?.GetAttacker()}, Target ({target}).\nError message: {e.Message}");
             }
-        }
+        } 
     }
 }

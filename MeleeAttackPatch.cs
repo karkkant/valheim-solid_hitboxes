@@ -18,7 +18,7 @@ namespace SolidHitboxes
         }
 
         [HarmonyTranspiler]
-        [HarmonyPatch(typeof(Attack), nameof(Attack.DoMeleeAttack))]
+        [HarmonyPatch(typeof(Attack), "DoMeleeAttack")]
         private static IEnumerable<CodeInstruction> DoMeleeAttack_Patch(IEnumerable<CodeInstruction> instructions, ILGenerator il)
         {
             var codeLines = new List<CodeInstruction>(instructions);
